@@ -10,7 +10,17 @@ class BinaryTree(rootValue: Int, private val rootNode: Node = Node(rootValue)) {
         }
     }
 
-    fun depthFirstSearch(searchValue: Int) = inOrderTraversal().contains(searchValue)
+//    fun depthFirstSearch(searchValue: Int) = inOrderTraversal().contains(searchValue)
+
+    fun depthFirstSearch(searchValue: Int, node: Node? = rootNode): Boolean {
+        return when {
+            node == null -> false
+            searchValue == node.value -> true
+            depthFirstSearch(searchValue, node.left) -> true
+            depthFirstSearch(searchValue, node.right) -> true
+            else -> false
+        }
+    }
 
     fun inOrderTraversal(node: Node = rootNode, currentList: MutableList<Int> = mutableListOf()): List<Int> {
         if (node.left != null) inOrderTraversal(node.left!!, currentList)
